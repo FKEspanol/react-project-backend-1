@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
+   picture: {
+      type: String,
+      required: true
+   },
    firstname: {
       type: String,
       required: true

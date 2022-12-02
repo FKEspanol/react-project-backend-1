@@ -4,7 +4,7 @@ const LOCAL_URI = "mongodb://127.0.0.1:27017";
 
 const connectDB = async () => {
    try {
-      mongoose.connect(DB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+      mongoose.connect(LOCAL_URI, { useNewUrlParser: true, useUnifiedTopology: true });
    } catch (error) {
       console.error(error);
    }

@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(express.json({ limit: '50mb' }));
 
 //serve static files
-app.use(express.static(path.join(__dirname, 'userProfiles')));
+app.use(express.static(path.join(__dirname, 'storage')));
 
 //middleware for cookies
 app.use(cookieParser());

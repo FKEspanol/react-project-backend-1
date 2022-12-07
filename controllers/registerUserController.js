@@ -23,7 +23,12 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ hasError: true, validationErrors });
     }
 
-    const base64 = req.body.picture.replace("data:image/jpeg;base64,", ""); //*convert base64 encoding to image and place it in specifig folder in this case in storage/userProfiles folder
+    const imageType = /png/.test(req.body.picture)
+      ? "data:image/png;base64,"
+      : /jpeg/.test(req.body.picture)
+      ? "data:image/jpeg;base64,"
+      : "";
+    const base64 = req.body.picture.replace(imageType, ""); //*convert base64 encoding to image and place it in specifig folder in this case in storage/userProfiles folder
 
     //* create the directory of users profile pictures in storage folder
     const profilePictureDir = `userProfiles/${req.body.firstname}_${req.body.lastname}`;

@@ -8,10 +8,15 @@ const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const connectDB = require("./config/dbConf");
 const PORT = process.env.PORT || 200;
+const { logger } = require("./middleware/logEvents");
+const errorHandler = require("./middleware/errorHandler");
 
 connectDB();
+
+app.use(logger);
+
 app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: false, limit: "50mb" }));
+// app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
 
 //serve static files
@@ -22,8 +27,9 @@ app.use(cookieParser());
 
 app.use("/registerUser", require("./routes/registerUser"));
 app.use("/getAllUsers", require("./routes/getAllUsers"));
-app.use("/deleteUser", require("./routes/DeleteUser"));
+app.use("/deleteUser", require("./routes/deleteUser"));
 
+app.use(errorHandler);
 mongoose.connection.once("open", () => {
   console.log("Connected to mongodb");
   app.listen(PORT, () => console.log(`Server started at port ${PORT}`));
